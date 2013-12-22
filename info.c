@@ -270,17 +270,17 @@ int main(int argc, char **argv) {
     } else {
         time_t now;
         time(&now);
-        for (int i=5;i>-1;i--) {
-            sysctls(i);
-        }
-        envs(1);
-        envs(2);
         envs(3);
+        sysctls(0);
+        sysctls(3);
+        sysctls(4);
+        sysctls(5);
         disk();
         mem();
+        envs(2);
+        envs(1);
         pkg();
         uptime(&now);
-        gpu();
     }
     return 0;
 }
