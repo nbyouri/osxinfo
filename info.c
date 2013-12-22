@@ -152,7 +152,7 @@ static void gpu(void) // Thank you bottomy(ScrimpyCat) for this.
     }
 }
 void help(void) {
-    printf("Mac OS X Info script by yrmt dec. 2013\n"
+    printf("Mac OS X Info program by yrmt dec. 2013\n"
             "\t-a shows a colored apple\n"
             "\t-h shows this help msg\n");
     exit(0);
