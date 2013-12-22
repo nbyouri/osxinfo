@@ -58,10 +58,10 @@ static void print_apple(void) {
     printf(C3" -+++++++++++++++++++++++`    ");envs(2);
     printf(C3" /++++++++++++++++++++++/     ");envs(1);
     printf(C4" /sssssssssssssssssssssss.    ");sysctls(1);
-    printf(C4" :ssssssssssssssssssssssss-   ");disk();
-    printf(C5"  osssssssssssssssssssssssso/ ");pkg();
-    printf(C5"  `syyyyyyyyyyyyyyyyyyyyyyyy+ ");uptime(&now);
-    printf(C5"   `ossssssssssssssssssssss/  ");gpu();
+    printf(C4" :ssssssssssssssssssssssss-   ");gpu();
+    printf(C5"  osssssssssssssssssssssssso/ ");disk();
+    printf(C5"  `syyyyyyyyyyyyyyyyyyyyyyyy+ ");pkg();
+    printf(C5"   `ossssssssssssssssssssss/  ");uptime(&now);
     printf(C6"     :ooooooooooooooooooo+.   \n");
     printf(C6"      `:+oo+/:-..-:/+o+/-     \n");
 }
@@ -280,6 +280,7 @@ int main(int argc, char **argv) {
         envs(2);
         envs(1);
         sysctls(1);
+        gpu();
         pkg();
         uptime(&now);
     }
