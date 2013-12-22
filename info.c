@@ -279,6 +279,7 @@ int main(int argc, char **argv) {
         mem();
         envs(2);
         envs(1);
+        sysctls(1);
         pkg();
         uptime(&now);
     }
