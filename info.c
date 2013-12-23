@@ -45,6 +45,7 @@ static void pkg(void);
 static void uptime(time_t *nowp);
 static void gpu(void);
 static void mem(void);
+static void print_apple(void);
 
 static void print_apple(void) {
     time_t now;
@@ -159,11 +160,8 @@ void help(void) {
 }
 static void sysctls(int i) {
     size_t len;
-    uint64_t value64;
-    if(i == 2) {
-        len = sizeof(value64);
-        sysctlbyname(values[2].ctls, &value64, &len, NULL, 0);
-        printf(RED"%-10s: "NOR"%.f MB\n", values[2].names, value64/1e+06);
+    if(i==2) {
+        mem();
     } else {
         sysctlbyname(values[i].ctls, NULL, &len, NULL, 0);
         char *type = malloc(len);
