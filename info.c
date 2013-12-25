@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <getopt.h>
 #include <pwd.h>
+#include <time.h>
 #include <sys/sysctl.h>
 #include <sys/statvfs.h>
 #include <sqlite3.h>
@@ -46,6 +47,7 @@ static void uptime(time_t *nowp);
 static void gpu(void);
 static void mem(void);
 static void print_apple(void);
+static void curtime(void);
 
 static void print_apple(void) {
     time_t now;
@@ -63,11 +65,15 @@ static void print_apple(void) {
     printf(C5"  osssssssssssssssssssssssso/ ");disk();
     printf(C5"  `syyyyyyyyyyyyyyyyyyyyyyyy+ ");pkg();
     printf(C5"   `ossssssssssssssssssssss/  ");uptime(&now);
-    printf(C6"     :ooooooooooooooooooo+.   \n");
+    printf(C6"     :ooooooooooooooooooo+.   ");curtime();
     printf(C6"      `:+oo+/:-..-:/+o+/-     \n"C0);
 }
-static void mem(void)
-{
+static void curtime(void) {
+    time_t t;
+    t = time(NULL);
+    printf(RED"Time:     : "NOR"%s", ctime(&t));
+}
+static void mem(void) {
     size_t len;
     mach_port_t myHost;
     vm_statistics64_data_t	vm_stat;
@@ -79,19 +85,18 @@ static void mem(void)
     len = sizeof(value64);
     sysctlbyname(values[2].ctls, &value64, &len, NULL, 0);
     if(host_page_size(mach_host_self(), &pageSize) == KERN_SUCCESS) {
-        if ((ret = host_statistics64(myHost, HOST_VM_INFO64, (host_info64_t)&
-                                     vm_stat, &count) == KERN_SUCCESS)) {
+        if((ret = host_statistics64(myHost, HOST_VM_INFO64, (host_info64_t)&
+                        vm_stat, &count) == KERN_SUCCESS)) {
             printf(RED"%s    : "NOR"%llu MB of %.f MB\n",
-                   values[2].names,
-                   (uint64_t)(vm_stat.active_count +
-                   vm_stat.inactive_count +
-                   vm_stat.wire_count)*pageSize >> 20,
-                   value64 / 1e+06);
+                    values[2].names,
+                    (uint64_t)(vm_stat.active_count +
+                        vm_stat.inactive_count +
+                        vm_stat.wire_count)*pageSize >> 20,
+                    value64 / 1e+06);
         }
     }
 }
-static void gpu(void) // Thank you bottomy(ScrimpyCat) for this.
-{
+static void gpu(void) { // Thank you bottomy(ScrimpyCat) for this.
     io_iterator_t Iterator;
     kern_return_t err = IOServiceGetMatchingServices(kIOMasterPortDefault,
             IOServiceMatching("IOPCIDevice"),
@@ -133,7 +138,7 @@ static void gpu(void) // Thank you bottomy(ScrimpyCat) for this.
                         CFTypeID Type = CFGetTypeID(VRAM);
                         if(Type==CFDataGetTypeID())
                             Size=(CFDataGetLength(VRAM) == sizeof(uint32_t) ?
-                    (mach_vm_size_t)*(const uint32_t*)CFDataGetBytePtr(VRAM):
+                                    (mach_vm_size_t)*(const uint32_t*)CFDataGetBytePtr(VRAM):
                                     *(const uint64_t*)CFDataGetBytePtr(VRAM));
                         else if(Type == CFNumberGetTypeID())
                             CFNumberGetValue(VRAM,
@@ -210,8 +215,7 @@ static void disk(void) {
                 perc * 100, (float)total / 1e+09);
     }
 }
-static void uptime(time_t *nowp)
-{
+static void uptime(time_t *nowp) {
     struct timeval boottime;
     time_t uptime;
     int days, hrs, mins, secs;
@@ -267,6 +271,7 @@ int main(int argc, char **argv) {
         time_t now;
         time(&now);
         envs(3);
+        curtime();
         sysctls(0);
         sysctls(3);
         sysctls(4);
