@@ -64,7 +64,7 @@ static void print_apple(void) {
     printf(C5"  `syyyyyyyyyyyyyyyyyyyyyyyy+ ");pkg();
     printf(C5"   `ossssssssssssssssssssss/  ");uptime(&now);
     printf(C6"     :ooooooooooooooooooo+.   \n");
-    printf(C6"      `:+oo+/:-..-:/+o+/-     \n");
+    printf(C6"      `:+oo+/:-..-:/+o+/-     \n"C0);
 }
 static void mem(void)
 {
