@@ -254,7 +254,7 @@ static void pkg(void) { // Thank you dcat for this.
     int pkgs = 0;
     sqlite3_stmt *s;
     char *sql = "SELECT COUNT (*) FROM LOCAL_PKG";
-    if (sqlite3_open("/var/db/pkgin/pkgin.db", &db) == SQLITE_OK) {
+    if (sqlite3_open(PKGIN_DB, &db) == SQLITE_OK) {
         if (sqlite3_prepare_v2(db, sql, -1, &s, NULL) == SQLITE_OK) {
             if (sqlite3_step(s) != SQLITE_ERROR) {
                 pkgs = sqlite3_column_int(s,0);
