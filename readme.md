@@ -5,5 +5,5 @@ This a fast info program written in C.
 `yrmt december 2013`
 
 
-![img](http://paste.unixhub.net/index.php/ZID6/)
+![img](http://misc.saveosx.org/osxinfo.png)
 
