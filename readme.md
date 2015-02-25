@@ -1,9 +1,9 @@
 ### Info script for Mac OS X.
 
-This a fast info program written in C.
+This a fast info program written in C, it gets packages info from a pkgin 
+database specified in the makefile.
 
-`yrmt december 2013`
+`yrmt february 2015`
 
 
 ![img](http://misc.saveosx.org/osxinfo.png)
-
