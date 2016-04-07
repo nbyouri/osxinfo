@@ -1,11 +1,12 @@
 CC ?= clang
-PREFIX ?= /usr/pkg
+PREFIX ?= /opt/pkg
 
-VARBASE ?= /var
-PKGIN_DB = ${VARBASE}/db/pkgin/pkgin.db
+VARBASE ?= ${PREFIX}/var
+DBDIR ?= ${VARBASE}/db/pkg
 
-CFLAGS = -I/usr/include -DPKGIN_DB=\"${PKGIN_DB}\"
-LDFLAGS = -L/usr/lib -lsqlite3 -framework IOKit -framework Foundation
+CFLAGS =  -I/usr/include -DDBDIR=\"${DBDIR}\" -g -Wall
+LDFLAGS = -L/usr/lib -framework IOKit -framework Foundation
+
 all:
 	${CC} ${CFLAGS} info.c ${LDFLAGS} -o osxinfo
 install:
