@@ -270,7 +270,7 @@ static void disk(void) {
 
 	if (!statvfs("/", &info)) {
 		unsigned long left  = (info.f_bavail * info.f_frsize);
-		unsigned long total = (info.f_files * info.f_frsize);
+		unsigned long total = (info.f_blocks * info.f_frsize);
 		unsigned long used  = total - left;
 		float perc  = (float)used / (float)total;
 
