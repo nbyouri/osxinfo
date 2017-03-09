@@ -6,4 +6,4 @@ database specified in the makefile.
 `yrmt february 2015`
 
 
-![img](http://misc.saveosx.org/osxinfo.png)
+![img](img.png)
